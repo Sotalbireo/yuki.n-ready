@@ -7,7 +7,7 @@
 <meta name="generator" content="?????? HP EDITOR -1.1">
 <meta name="robots" content="noindex,nofollow,noarchive">
 <title>SOS D       s   </title>
-<style>*{border:0;font-size:20px;line-height:1.6}html{width:100%;height:100%}body,input{background:#404050;color:#fff;font-family:monospace}main{width:100%;height:100%;margin:0 auto}span{display:inline-block;margin:0 0 1.6em}div:before{content:"YUKI.N> ";vertical-align:top}.caret:after{content:"_"}</style>
+<style>*{border:0;font-size:20px;line-height:1.5}html{width:100%;max-width:800px;margin:1.5em auto 0}body,input{background:#404050;color:#fff;font-family:monospace}input{color:#404050}span{display:inline-block;margin:0 0 1.5em}div:before{content:"YUKI.N> ";vertical-align:top}.caret:after{content:"_"}</style>
 </head>
 <body>
 <main id='main'>
@@ -29,10 +29,13 @@ var d    = document.getElementById('main'),
     "",
     "",
     "",
+    "",
     "これは緊急脱出プログラムである。",
+    "",
     "",
     "起動させる場合はエンターキーを、",
     "そうでない場合はそれ以外のキーを選択せよ。",
+    "",
     "起動させた場合、",
     "あなたは時空修正の機会を得る。",
     "ただし成功は保障できない。",
@@ -43,30 +46,20 @@ var d    = document.getElementById('main'),
     "",
     "非実行が選択された場合は起動せずに消去される。",
     "",
+    "",
+    // "Ready?",
+    "EOT"
     ],
     messLen = mess.length,
     i_div = (-1),
-    i_mess = (-1),
-    j = true,
-    goNext = true;
-
-
+    i_mess = 0;
 
     setTimeout("Main()", 5000);
 
 
-
 function Main()
 {
-var watchMain = setInterval((function(){
-    if(i_mess>messLen){ clearInterval(watchMain); watchMain=null;}
-    if (j) {
-        j=false; createDiv=true;
-    }else if(goNext) {
-        goNext=false; i_mess++;
-        setTimeout(( function(){typing(i_mess, mess[i_mess], mess[i_mess].length, d, createDiv, false)}), 250);
-    }else{};
-}), 100);
+    typing(i_mess, mess[i_mess], mess[i_mess].length, d, true, false);
 }
 
 function typing(i, str, len, targ, createDiv, canWrite)
@@ -75,8 +68,10 @@ function typing(i, str, len, targ, createDiv, canWrite)
     if (len==0) {
         i++;
         targ.classList.remove("caret");
-        setTimeout((function(){ typing(i, mess[i], mess[i].length, targ, true, false)}), 1000);
-        // setTimeout((function(){ j=true; goNext=true; i_mess=++i; createDiv=true;}), 700);
+        setTimeout((function(){ typing(i, mess[i], mess[i].length, targ, true, false)}), 800);
+    }else if(mess[i]=='EOT'){
+        clearInterval(typingWord); typingWord=null;
+        ready();
     }else{
 
         var typingWord = setInterval((function(){
@@ -86,7 +81,7 @@ function typing(i, str, len, targ, createDiv, canWrite)
                 targ = d.getElementsByTagName('span')[++i_div];
                 targ.classList.add('caret');
                 createDiv=false;
-                setTimeout((function(){canWrite=true;}), 1000);
+                setTimeout((function(){canWrite=true;}), 800);
             }else if (k>=len) {
                 clearInterval(typingWord);
                 targ.innerHTML += "<br>";
@@ -97,11 +92,12 @@ function typing(i, str, len, targ, createDiv, canWrite)
                 targ.innerHTML += str.substr(k++, 1);
             };
         }), 60);
-
-
-
     };
+}
 
+function ready()
+{
+var Enter=13;
 }
 </script>
 </body>
