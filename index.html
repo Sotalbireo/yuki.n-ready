@@ -7,12 +7,11 @@
 <meta name="generator" content="?????? HP EDITOR -1.1">
 <meta name="robots" content="noindex,nofollow,noarchive">
 <title>SOS D       s   </title>
-<style>*{border:0;font-size:20px;line-height:1.5}html{width:100%;max-width:800px;margin:1.5em auto 0}body,input{background:#404050;color:#fff;font-family:monospace}input{color:#404050}span{display:inline-block;margin:0 0 1.5em}div:before{content:"YUKI.N> ";vertical-align:top}.caret:after{content:"_"}</style>
+<style>*{margin:0;border:0;padding:0;font-size:20px;line-height:1.5}html{width:100%;max-width:800px;margin:1.5em auto 0}body,input{background:#404050;color:#fff;font-family:monospace}input{color:#404050;display:inline-block;width:0.75em}input:focus{outline:none;}span{display:inline-block;margin:0 0 1.5em}div:before{content:"YUKI.N> ";vertical-align:top}.caret:after{content:"_"}.border{border-bottom:1px solid #fff}</style>
 </head>
 <body>
 <main id='main'>
 </main>
-<input type="text" size=1>
 <script type="text/javascript">
 var d    = document.getElementById('main'),
     div  = "<div><span></span></div>",
@@ -47,7 +46,7 @@ var d    = document.getElementById('main'),
     "非実行が選択された場合は起動せずに消去される。",
     "",
     "",
-    // "Ready?",
+    "Ready?",
     "EOT"
     ],
     messLen = mess.length,
@@ -70,6 +69,8 @@ function typing(i, str, len, targ, createDiv, canWrite)
         targ.classList.remove("caret");
         setTimeout((function(){ typing(i, mess[i], mess[i].length, targ, true, false)}), 800);
     }else if(mess[i]=='EOT'){
+        targ.classList.remove("caret");
+        targ.innerHTML = targ.innerHTML.replace(/<br>$/, " <input type='text' autofocus>");
         clearInterval(typingWord); typingWord=null;
         ready();
     }else{
@@ -97,7 +98,11 @@ function typing(i, str, len, targ, createDiv, canWrite)
 
 function ready()
 {
-var Enter=13;
+    var Enter=13;
+    var targ= d.getElementsByTagName('input')[0];
+    var toggleCaret=setInterval((function(){
+        targ.classList.toggle('border');
+    }), 600);
 }
 </script>
 </body>
