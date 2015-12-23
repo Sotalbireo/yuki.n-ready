@@ -3,11 +3,11 @@
 <head>
 <meta content='IE=edge' http-equiv='X-UA-Compatible'>
 <meta charset='utf-8'>
-<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0' name='viewpoint'>
+<meta content='width=device-width,minimum-scale=1.0' name='viewpoint'>
 <meta name="generator" content="?????? HP EDITOR -1.1">
 <meta name="robots" content="noindex,nofollow,noarchive">
 <title>SOS D       s   </title>
-<style>*{margin:0;border:0;padding:0;font-size:20px;line-height:1.5}html{width:100%;max-width:800px;margin:1.5em auto 0}body,input{background:#404050;color:#fff;font-family:monospace}input{color:#404050;display:inline-block;width:0.75em}input:focus{outline:none;}span{display:inline-block;margin:0 0 1.5em}div:before{content:"YUKI.N> ";vertical-align:top}.caret:after{content:"_"}.border{border-bottom:1px solid #fff}</style>
+<style>*{margin:0;border:0;padding:0;font-size:20px;line-height:1.5}html{width:100%;max-width:800px;margin:1.5em auto 0}body,input{background:#404050;color:#fff;font-family:monospace}input{color:#404050;display:inline-block;width:0.75em;border-radius:0}input:focus{outline:none;}span{display:inline-block;margin:0 0 1.5em}div:before{content:"YUKI.N> ";vertical-align:top}.caret:after{content:"_"}.border{border-bottom:1px solid #fff}</style>
 </head>
 <body>
 <main id='main'>
@@ -49,12 +49,21 @@ var d    = document.getElementById('main'),
     "Ready?",
     "EOT"
     ],
-    messLen = mess.length,
-    i_div = (-1),
-    i_mess = 0;
+    messLen   = mess.length,
+    i_div     = (-1),
+    i_mess    = 0,
+    canType   = false,
+    // delayTime = 10,
+    // typeSpeed = 10;
+    typeSpeed = 60,
+    delayTime = 800;
 
     setTimeout("Main()", 5000);
-
+    if(document.addEventListener){
+        document.addEventListener("keydown" , isEnter);
+    }else if(document.attachEvent){
+        document.attachEvent("onkeydown" , isEnter);
+    }
 
 function Main()
 {
@@ -67,10 +76,10 @@ function typing(i, str, len, targ, createDiv, canWrite)
     if (len==0) {
         i++;
         targ.classList.remove("caret");
-        setTimeout((function(){ typing(i, mess[i], mess[i].length, targ, true, false)}), 800);
+        setTimeout((function(){ typing(i, mess[i], mess[i].length, targ, true, false)}), delayTime);
     }else if(mess[i]=='EOT'){
         targ.classList.remove("caret");
-        targ.innerHTML = targ.innerHTML.replace(/<br>$/, " <input type='text' autofocus>");
+        targ.innerHTML = targ.innerHTML.replace(/<br>$/, " <input type='text' inputmode='verbatim'>");
         clearInterval(typingWord); typingWord=null;
         ready();
     }else{
@@ -82,7 +91,7 @@ function typing(i, str, len, targ, createDiv, canWrite)
                 targ = d.getElementsByTagName('span')[++i_div];
                 targ.classList.add('caret');
                 createDiv=false;
-                setTimeout((function(){canWrite=true;}), 800);
+                setTimeout((function(){canWrite=true;}), delayTime);
             }else if (k>=len) {
                 clearInterval(typingWord);
                 targ.innerHTML += "<br>";
@@ -92,18 +101,32 @@ function typing(i, str, len, targ, createDiv, canWrite)
             }else if(canWrite){
                 targ.innerHTML += str.substr(k++, 1);
             };
-        }), 60);
+        }), typeSpeed);
     };
 }
 
 function ready()
 {
-    var Enter=13;
-    var targ= d.getElementsByTagName('input')[0];
+    var targ  = d.getElementsByTagName('input')[0];
+    targ.focus(); canType = true;
     var toggleCaret=setInterval((function(){
         targ.classList.toggle('border');
     }), 600);
 }
+
+function isEnter(event)
+{
+//    var Enter =13;
+    var key= event.keyCode || event.witch;
+    if (!canType) return false;
+    areUready(key==13);
+}
+
+function areUready(kyon)
+{
+    if(kyon) { console.log('true');} else{ console.log('false');};
+}
+
 </script>
 </body>
 </html>
