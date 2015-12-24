@@ -3,11 +3,11 @@
 <head>
 <meta content='IE=edge' http-equiv='X-UA-Compatible'>
 <meta charset='utf-8'>
-<meta content='width=device-width,minimum-scale=1.0' name='viewpoint'>
+<meta content='width=800px,minimum-scale=1.0' name='viewpoint'>
 <meta name="generator" content="?????? HP EDITOR -1.1">
 <meta name="robots" content="noindex,nofollow,noarchive">
 <title>SOS D       s   </title>
-<style>*{margin:0;border:0;padding:0;font-size:20px;line-height:1.5}html{width:100%;max-width:800px;margin:1.5em auto 0}body,input{background:#404050;color:#fff;font-family:monospace}input{color:#404050;display:inline-block;width:0.75em;border-radius:0}input:focus{outline:none;}span{display:inline-block;margin:0 0 1.5em}div:before{content:"YUKI.N> ";vertical-align:top}.caret:after{content:"_"}.border{border-bottom:1px solid #fff}</style>
+<style>*{margin:0;border:0;padding:0;line-height:1.5}html{width:100%;max-width:800px;margin:1.5rem auto 0;font-size:20px}body,input{background:#404050;color:#fff;font-family:monospace}input{color:#404050;display:inline-block;width:.75em;border-radius:0;font-size:1rem}input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}input:focus{outline:none}span{display:inline-block;margin:0 0 1.5em}div:before{content:"YUKI.N> ";vertical-align:top}.caret:after{content:"_"}.border{border-bottom:1px solid #fff}@media(max-width:1023px){body,input{font-size:2rem}}.ok{background:#fff;color:#333;text-align:center;font-family:sans-serif}.yet{background:#c6e0fb;color:#72b5f8}.nf404{background:#fff;color:#000;font-family:serif;text-align:center}h1{font-weight:700;margin:0 auto 1em}hr{height:1px;width:80%;border-top:2px solid #000;margin:0 auto 20px}a{color:#333;text-decoration:none}.sml{font-size:.8rem}</style>
 </head>
 <body>
 <main id='main'>
@@ -46,6 +46,7 @@ var d    = document.getElementById('main'),
     "非実行が選択された場合は起動せずに消去される。",
     "",
     "",
+    "",
     "Ready?",
     "EOT"
     ],
@@ -79,7 +80,7 @@ function typing(i, str, len, targ, createDiv, canWrite)
         setTimeout((function(){ typing(i, mess[i], mess[i].length, targ, true, false)}), delayTime);
     }else if(mess[i]=='EOT'){
         targ.classList.remove("caret");
-        targ.innerHTML = targ.innerHTML.replace(/<br>$/, " <input type='text' inputmode='verbatim'>");
+        targ.innerHTML = targ.innerHTML.replace(/<br>$/, " <input type='number' inputmode='verbatim' autocorrect='off'>");
         clearInterval(typingWord); typingWord=null;
         ready();
     }else{
@@ -117,149 +118,42 @@ function ready()
 function isEnter(event)
 {
 //    var Enter =13;
-    var key= event.keyCode || event.witch;
     if (!canType) return false;
+    var key= event.keyCode || event.witch;
     areUready(key==13);
 }
 
 function areUready(kyon)
 {
-    if(kyon) { console.log('true');} else{ console.log('false');};
+    canType = false;
+    d.innerHTML = '';
+    var body    = document.getElementsByTagName('body')[0];
+
+    if(kyon)
+    {
+        body.classList.add('ok');
+
+        setTimeout((function(){
+            d.innerHTML += "<p>「オーケーさ、もちろん」</p>\n<p><a href='//www.haruhi.tv/' class='sml'>&copy; 2003- SOS団</a></p>";
+        }), 1000);
+    }else{
+        body.classList.add('yet');
+
+        d.innerHTML += "<p>また、図書館に</p>";
+        setTimeout('notFound()', 3000);
+    };
+}
+
+function notFound()
+{
+    var b = document.getElementsByTagName('body')[0];
+    b.innerHTML = ''; b.classList.remove('yet');
+    b.classList.add('nf404');
+    setTimeout((function(){
+        b.innerHTML = "<h1>404 Not found.</h1>\n<hr>\n<p><a href='//www.yukichan-anime.com/' class='sml'>&copy; 2003- ????</a></p>";
+    }), 750);
 }
 
 </script>
 </body>
 </html>
-
-
-<!--
-yuki_mes = new Array(26);
-
-yuki_mes[ 0]="YUKI.N> これをあなたが読んでいる時、";
-yuki_mes[ 1]="　　　　　わたしはわたしではないだろう。";
-yuki_mes[ 2]="        ";
-yuki_mes[ 3]="YUKI.N> このメッセージが表示されたということは、";
-yuki_mes[ 4]="　　　　　そこにはあなた、わたし、涼宮ハルヒ、朝比奈みくる、";
-yuki_mes[ 5]="　　　　　古泉一樹が存在しているはずである。";
-yuki_mes[ 6]="        ";
-yuki_mes[ 7]="YUKI.N> それが鍵。";
-yuki_mes[ 8]="　　　　　あなたは解答を見つけ出した。";
-yuki_mes[ 9]="        ";
-yuki_mes[10]="YUKI.N> これは緊急脱出プログラムである。";
-yuki_mes[11]="        ";
-yuki_mes[12]="　　　　　起動させる場合はエンターキーを、";
-yuki_mes[13]="　　　　　そうでない場合はそれ以外のキーを選択せよ。";
-yuki_mes[14]="        ";
-yuki_mes[15]="　　　　　起動させた場合、";
-yuki_mes[16]="　　　　　あなたは時空修正の機会を得る。";
-yuki_mes[17]="　　　　　ただし成功は保障できない。";
-yuki_mes[18]="　　　　　また帰還の保障もできない。";
-yuki_mes[19]="        ";
-yuki_mes[20]="YUKI.N> このプログラムが起動するのは一度きりである。";
-yuki_mes[21]="　　　　　実行ののち、消去される。";
-yuki_mes[22]="        ";
-yuki_mes[23]="YUKI.N> 非実行が選択された場合は起動せずに消去される。";
-yuki_mes[24]="        ";
-yuki_mes[25]="Ｒｅａｄｙ？";
-
-
-
-yuki_mes_num = 0;
-mes_pos = 0;
-keywait_flg = 0;
-keywait_cur = 0;
-
-function mes_start()
-{
-    setTimeout("meswin_open()",2000);
-}
-
-function meswin_open()
-{
-    document.getElementById('escapeprogram').style.visibility = 'visible';
-    setTimeout("mes_event()",2000);
-}
-
-function mes_event()
-{
-    mes_pos = mes_pos + 1;
-    mes = "";
-    if (yuki_mes_num != 0) {
-        for (i = 0; i < yuki_mes_num; i++ ) {
-            mes = mes + yuki_mes[i] + "<br>";
-        }
-    }
-    mes = mes + yuki_mes[yuki_mes_num].substr(0,mes_pos);
-    document.getElementById('escapeprogram').innerHTML = mes;
-    if (mes_pos < yuki_mes[yuki_mes_num].length) {
-        setTimeout("mes_event()",100);
-    } else {
-        yuki_mes_num = yuki_mes_num + 1;
-        mes_pos = 0;
-        if (yuki_mes_num < 26) {
-            setTimeout("mes_event()",150);
-        } else {
-            keywait_flg = 1;
-            setTimeout("keywait_event()",300);
-        }
-    }
-}
-
-function keywait_event()
-{
-    if ( keywait_flg == 1) {
-        meskw = mes;
-        if (keywait_cur == 0) {
-            meskw = meskw + "＿";
-            keywait_cur = 1;
-        } else {
-            keywait_cur = 0;
-        }
-        document.getElementById('escapeprogram').innerHTML = meskw;
-    }
-    setTimeout("keywait_event()",300);
-}
-
-function key_down(event)
-{
-    if(keywait_flg == 1){
-        keywait_flg = 2;
-        if(event.keyCode == 13 || event.charCode == 13){
-            document.getElementById('escapeprogram').innerHTML = "";
-            document.getElementById('escapeprogram').style.visibility = 'hidden';
-            end_event2_cnt = 1;
-            setTimeout("end_event2()",500);
-        } else {
-            document.getElementById('escapeprogram').innerHTML = "";
-            document.getElementById('escapeprogram').style.visibility = 'hidden';
-            baseimg.src="img/base3.gif";
-            document.getElementById('yukichan').style.visibility = 'visible';
-            document.getElementById('yukichan').innerHTML = "<a href=\"http://www.yukichan-anime.com/index.html\">長門有希ちゃんの消失</a>";
-        }
-    }
-}
-
-function end_event2()
-{
-        if (end_event2_cnt != 0) {
-            end_event2_cnt--;
-//          baseimg.width = end_event2_cnt * 138;
-//          baseimg.height = end_event2_cnt * 72;
-            baseimg.width = 138;
-            baseimg.height = 72;
-            setTimeout("end_event2()",100);
-        } else {
-            setTimeout("end_event3()",100);
-        }
-}
-
-function end_event3()
-{
-        document.getElementById('errorbox').style.visibility = 'hidden';
-        errorbox.bgColor = '#000000';
-        document.getElementById('kmes').style.visibility = 'visible';
-        document.getElementById('kmes').innerHTML = "オーケーさ、もちろん";
-}
-
-
-// -->
