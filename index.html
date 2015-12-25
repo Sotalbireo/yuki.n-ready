@@ -3,18 +3,19 @@
 <head>
 <meta content='IE=edge' http-equiv='X-UA-Compatible'>
 <meta charset='utf-8'>
-<meta content='width=device-width,minimum-scale=1.0' name='viewpoint'>
+<meta content='width=680,minimum-scale=1.0' name='viewpoint'>
 <meta name="generator" content="?????? HP EDITOR -1.1">
 <meta name="robots" content="noindex,nofollow,noarchive">
 <title>SOS D       s   </title>
-<style>*{margin:0;border:0;padding:0;line-height:1.5}html{width:100%;max-width:800px;margin:1.5rem auto 0;font-size:20px}body,input{background:#404050;color:#fff;font-family:monospace}input{color:#404050;display:inline-block;width:.75em;border-radius:0;font-size:1rem}input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}input:focus{outline:none}span{display:inline-block;margin:0 0 1.5em}div:before{content:"YUKI.N> ";vertical-align:top}.caret:after{content:"_"}.border{border-bottom:1px solid #fff}@media(max-width:1023px){html{margin:0}body,input{font-size:1.5rem}span{margin:0 0 .5em}}.ok{background:#fff;color:#333;text-align:center;font-family:sans-serif}.yet{background:#c6e0fb;color:#72b5f8}.nf404{background:#fff;color:#000;font-family:serif;text-align:center}h1{font-weight:700;margin:0 auto 1em}hr{height:1px;width:80%;border-top:2px solid #000;margin:0 auto 20px}a{color:#333;text-decoration:none}.sml{font-size:.8rem}</style>
+<style>*{margin:0;border:0;padding:0;line-height:1.5}html{width:100%;max-width:800px;margin:1.5rem auto 0;font-size:20px}body,input{background:#404050;color:#fff;font-family:monospace}input{color:#404050;display:inline-block;width:.75em;border-radius:0;font-size:1rem}input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}input:focus{outline:none}span{display:inline-block;margin:0 0 1.5em}div:before{content:"YUKI.N> ";vertical-align:top}.caret:after{content:"_"}.border{border-bottom:1px solid #fff}@media(max-width:1023px){html{margin:0}body{width:680px}/*body,input{font-size:1.5rem}*/span{margin:0 0 .5em}}.ok{background:#fff;color:#333;text-align:center;font-family:sans-serif}.yet{background:#c6e0fb;color:#72b5f8}.nf404{background:#fff;color:#000;font-family:serif;text-align:center}h1{font-weight:700;margin:0 auto 1em}hr{height:1px;width:80%;border-top:2px solid #000;margin:0 auto 20px}a{color:#333;text-decoration:none}.sml{font-size:.8rem}</style>
 </head>
 <body>
 <main id='main'>
 </main>
 <script type="text/javascript">
-var d    = document.getElementById('main'),
-    div  = "<div><span></span></div>",
+var b    = document.getElementsByTagName('body')[0],
+    d    = document.getElementById('main'),
+    div  = "<div><span></span></div>\n",
     mess = [
     "これをあなたが読んでいる時、",
     "わたしはわたしではないだろう。",
@@ -30,8 +31,7 @@ var d    = document.getElementById('main'),
     "",
     "",
     "これは緊急脱出プログラムである。",
-    "",
-    "",
+    "BR",
     "起動させる場合はエンターキーを、",
     "そうでない場合はそれ以外のキーを選択せよ。",
     "",
@@ -42,20 +42,17 @@ var d    = document.getElementById('main'),
     "",
     "このプログラムが起動するのは一度きりである。",
     "実行ののち、消去される。",
-    "",
+    "BR",
     "非実行が選択された場合は起動せずに消去される。",
     "",
     "",
     "",
-    "Ready?",
-    "EOT"
+    "EOT",
+    "Ready?"
     ],
-    messLen   = mess.length,
     i_div     = (-1),
     i_mess    = 0,
     canType   = false,
-    // delayTime = 10,
-    // typeSpeed = 10;
     typeSpeed = 60,
     delayTime = 800;
 
@@ -68,51 +65,73 @@ var d    = document.getElementById('main'),
 
 function Main()
 {
-    typing(i_mess, mess[i_mess], mess[i_mess].length, d, true, false);
+    yuki(0, mess[0], mess[0].length, d, true);
 }
 
-function typing(i, str, len, targ, createDiv, canWrite)
+function yuki(i, str, len, targ, createDiv)
 {
     var k=0;
+    window.scrollBy(0, 40);
     if (len==0) {
         i++;
         targ.classList.remove("caret");
-        setTimeout((function(){ typing(i, mess[i], mess[i].length, targ, true, false)}), delayTime);
+        setTimeout((function(){ yuki(i, mess[i], mess[i].length, targ, true)}), delayTime);
     }else if(mess[i]=='EOT'){
         targ.classList.remove("caret");
-        targ.innerHTML = targ.innerHTML.replace(/<br>$/, " <input type='number' inputmode='verbatim' autocorrect='off'>");
         clearInterval(typingWord); typingWord=null;
-        ready();
+        ready(++i);
+    }else if(mess[i]=='BR'){
+        i++;
+        targ.innerHTML += "<br>\n";
+        setTimeout((function(){ yuki(i, mess[i], mess[i].length, targ, false)}), delayTime);
+        clearInterval(typingWord); typingWord=null;
+    }else if(createDiv){
+        d.innerHTML += div;
+        targ = d.getElementsByTagName('span')[++i_div];
+        targ.classList.add('caret');
+        createDiv=false;
+        setTimeout((function(){ yuki(i, mess[i], mess[i].length, targ, false)}), delayTime);
+        clearInterval(typingWord); typingWord=null;
     }else{
 
         var typingWord = setInterval((function(){
 
-            if (createDiv) {
-                d.innerHTML += div;
-                targ = d.getElementsByTagName('span')[++i_div];
-                targ.classList.add('caret');
-                createDiv=false;
-                setTimeout((function(){canWrite=true;}), delayTime);
-            }else if (k>=len) {
+            if (k>=len) {
                 clearInterval(typingWord);
-                targ.innerHTML += "<br>";
+                targ.innerHTML += "<br>\n";
+                window.scrollBy(0, 40);
                 i++;
                 typingWord=null;
-                typing(i, mess[i], mess[i].length , targ, false, true);
-            }else if(canWrite){
+                yuki(i, mess[i], mess[i].length , targ, false);
+            }else{
                 targ.innerHTML += str.substr(k++, 1);
             };
         }), typeSpeed);
     };
 }
 
-function ready()
+function ready(i)
 {
-    var targ  = d.getElementsByTagName('input')[0];
-    targ.focus(); canType = true;
-    var toggleCaret=setInterval((function(){
-        targ.classList.toggle('border');
-    }), 600);
+    d.innerHTML += "<span></span><input type='number' inputmode='verbatim' autocorrect='off'>";
+    var span   = d.getElementsByTagName('span')[++i_div],
+        input  = d.getElementsByTagName('input')[0],
+        input2 = setInterval((function(){
+            input.classList.toggle('border');
+        }), 600);
+
+    var k   = 0,
+        len = mess[i].length,
+        ask = setInterval((function(){
+            if (k>=len)
+            {
+                span.innerHTML += '&nbsp;';
+                clearInterval(ask); ask=null;
+            }else{
+                span.innerHTML += mess[i].substr(k++, 1);
+            };
+        }), 1000/3);
+
+    input.focus(); canType = true;
 }
 
 function isEnter(event)
@@ -120,24 +139,24 @@ function isEnter(event)
 //    var Enter =13;
     if (!canType) return false;
     var key= event.keyCode || event.witch;
-    areUready(key==13);
+    answer(key==13);
 }
 
-function areUready(kyon)
+function answer(say)
 {
     canType = false;
     d.innerHTML = '';
-    var body    = document.getElementsByTagName('body')[0];
+    window.scrollTo(0, 0);
 
-    if(kyon)
+    if(say)
     {
-        body.classList.add('ok');
+        b.classList.add('ok');
 
         setTimeout((function(){
-            d.innerHTML += "<p>「オーケーさ、もちろん」</p>\n<p><a href='//www.haruhi.tv/' class='sml'>&copy; 2003- SOS団</a></p>";
+            d.innerHTML += "<p>「オーケーさ、もちろん」</p>\n<p><a href='//www.haruhi.tv/' class='sml'>&copy; 2004,2010 \"The Vanishment of Haruhi Suzumiya\"</a></p>\n";
         }), 1000);
     }else{
-        body.classList.add('yet');
+        b.classList.add('yet');
 
         d.innerHTML += "<p>また、図書館に</p>";
         setTimeout('notFound()', 3000);
@@ -146,11 +165,10 @@ function areUready(kyon)
 
 function notFound()
 {
-    var b = document.getElementsByTagName('body')[0];
     b.innerHTML = ''; b.classList.remove('yet');
     b.classList.add('nf404');
     setTimeout((function(){
-        b.innerHTML = "<h1>404 Not found.</h1>\n<hr>\n<p><a href='//www.yukichan-anime.com/' class='sml'>&copy; 2003- ????</a></p>";
+        b.innerHTML = "<h1>404 Not found.</h1>\n<hr>\n<p><a href='//www.yukichan-anime.com/' class='sml'>&copy; 2004,2010 \"The Disappearance of ?????? ????????\"</a></p>\n";
     }), 750);
 }
 
