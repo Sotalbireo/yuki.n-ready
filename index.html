@@ -3,11 +3,14 @@
 <head>
 <meta content='IE=edge' http-equiv='X-UA-Compatible'>
 <meta charset='utf-8'>
-<meta content='width=680,minimum-scale=1.0' name='viewpoint'>
 <meta name="generator" content="?????? HP EDITOR -1.1">
+<meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scaleable=no' name='viewpoint'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="format-detection" content="telephone=no">
 <meta name="robots" content="noindex,nofollow,noarchive">
 <title>SOS D       s   </title>
-<style>*{margin:0;border:0;padding:0;line-height:1.5}html{width:100%;max-width:680px;margin:1.5rem auto 0;font-size:20px}body,input{background:#404050;color:#fff;font-family:monospace}input{color:#404050;display:inline-block;width:.75em;border-radius:0;font-size:1rem}input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}input:focus{outline:none}span{display:inline-block;margin:0 0 1.5em}div:before{content:"YUKI.N> ";vertical-align:top}.caret:after{content:"_"}.border{border-bottom:1px solid #fff}@media(max-width:1023px){/*body,input{font-size:1.5rem}*/span{margin:0 0 .5em}}.ok{background:#fff;color:#333;text-align:center;font-family:sans-serif}.yet{background:#c6e0fb;color:#72b5f8}.nf404{background:#fff;color:#000;font-family:serif;text-align:center}h1{font-weight:700;margin:0 auto 1em}hr{height:1px;width:80%;border-top:2px solid #000;margin:0 auto 20px}a{color:#333;text-decoration:none}.sml{font-size:.8rem}</style>
+<style>*{margin:0;border:0;padding:0;line-height:1.5}html{width:100%;min-width:640px;max-width:1024px;margin:30px auto 0;font-size:20px}body,input{background:#404050;color:#fff;margin:0 40px;font-family:monospace;--webkit-text-size-adjust:100%}input{color:#404050;display:inline-block;width:18px;border-radius:0;font-size:20px;margin:0;line-height:1}input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}input:focus{outline:none}span{display:inline-block;white-space:normal}div{white-space:nowrap;margin:0 0 30px}div:before{content:"YUKI.N> ";vertical-align:top}.caret:after{content:"_"}.border{border-bottom:1px solid #fff}.sp .border{border-bottom-width:2px;vertical-align:baseline}html.sp{width:100%;min-width:320px}.sp body{margin:20px 40px 0}.sp body,.sp input{font-size:27px}.sp input{width:24px;height:40px}.sp span{margin:0 0 10px}.ok{background:#fff;color:#333;text-align:center;font-family:sans-serif}.yet{background:#c6e0fb;color:#72b5f8}.nf404{background:#fff;color:#000;font-family:serif;text-align:center}.sp .nf404{width:640px;margin:0 auto}h1{font-weight:700;margin:0 auto 20px}hr{height:1px;width:80%;border-top:2px solid #000;margin:0 auto 20px}a{color:#333;text-decoration:none}.sml{font-size:80%}</style>
 </head>
 <body>
 <main id='main'>
@@ -16,7 +19,7 @@
 var b    = document.getElementsByTagName('body')[0],
     d    = document.getElementById('main'),
     div  = "<div><span></span></div>\n",
-    mess = [
+    msg = [
     "これをあなたが読んでいる時、",
     "わたしはわたしではないだろう。",
     "",
@@ -48,49 +51,59 @@ var b    = document.getElementsByTagName('body')[0],
     "",
     "",
     "EOT",
-    "Ready?"
+    "Ｒｅａｄｙ？"
     ],
     i_div     = (-1),
-    i_mess    = 0,
+    i_msg     = 0,
     canType   = false,
     typeSpeed = 60,
     delayTime = 800;
 
-    setTimeout("Main()", 5000);
-    if(document.addEventListener){
-        document.addEventListener("keydown" , isEnter);
-    }else if(document.attachEvent){
-        document.attachEvent("onkeydown" , isEnter);
-    }
+var ua = navigator.userAgent;
+if(/iPhone/.test(ua) || /iPod/.test(ua) || /Android/.test(ua))
+    document.getElementsByTagName('html')[0].classList.add('sp');
+if(document.addEventListener){
+    document.addEventListener('gesturestart', (function(e){e.preventDefault();}), false);
+}else if(document.attachEvent){
+    document.attachEvent('gesturestart', (function(e){e.preventDefault();}));
+}
+
+
+setTimeout("Main()", 4500);
+if(document.addEventListener){
+    document.addEventListener("keydown" , isEnter);
+}else if(document.attachEvent){
+    document.attachEvent("onkeydown" , isEnter);
+}
 
 function Main()
 {
-    yuki(0, mess[0], mess[0].length, d, true);
+    yuki(0, msg[0], msg[0].length, d, true);
 }
 
 function yuki(i, str, len, targ, createDiv)
 {
     var k=0;
     window.scrollBy(0, 40);
-    if (len==0) {
+    if (len===0) {
         i++;
         targ.classList.remove("caret");
-        setTimeout((function(){ yuki(i, mess[i], mess[i].length, targ, true)}), delayTime);
-    }else if(mess[i]=='EOT'){
+        setTimeout((function(){ yuki(i, msg[i], msg[i].length, targ, true)}), delayTime);
+    }else if(msg[i]==='EOT'){
         targ.classList.remove("caret");
         clearInterval(typingWord); typingWord=null;
         ready(++i);
-    }else if(mess[i]=='BR'){
+    }else if(msg[i]==='BR'){
         i++;
         targ.innerHTML += "<br>\n";
-        setTimeout((function(){ yuki(i, mess[i], mess[i].length, targ, false)}), delayTime);
+        setTimeout((function(){ yuki(i, msg[i], msg[i].length, targ, false)}), delayTime);
         clearInterval(typingWord); typingWord=null;
     }else if(createDiv){
         d.innerHTML += div;
         targ = d.getElementsByTagName('span')[++i_div];
         targ.classList.add('caret');
         createDiv=false;
-        setTimeout((function(){ yuki(i, mess[i], mess[i].length, targ, false)}), delayTime);
+        setTimeout((function(){ yuki(i, msg[i], msg[i].length, targ, false)}), delayTime);
         clearInterval(typingWord); typingWord=null;
     }else{
 
@@ -102,7 +115,7 @@ function yuki(i, str, len, targ, createDiv)
                 window.scrollBy(0, 40);
                 i++;
                 typingWord=null;
-                yuki(i, mess[i], mess[i].length , targ, false);
+                yuki(i, msg[i], msg[i].length , targ, false);
             }else{
                 targ.innerHTML += str.substr(k++, 1);
             };
@@ -112,22 +125,23 @@ function yuki(i, str, len, targ, createDiv)
 
 function ready(i)
 {
-    d.innerHTML += "<span></span><input type='number' inputmode='verbatim' autocorrect='off'>";
+    d.innerHTML += "<span></span><input type='text' autocorrect='off' autocomplete='off' autofocus>";
     var span   = d.getElementsByTagName('span')[++i_div],
         input  = d.getElementsByTagName('input')[0],
         input2 = setInterval((function(){
             input.classList.toggle('border');
         }), 600);
 
+    window.scrollBy(0, 40);
     var k   = 0,
-        len = mess[i].length,
+        len = msg[i].length,
         ask = setInterval((function(){
             if (k>=len)
             {
                 span.innerHTML += '&nbsp;';
                 clearInterval(ask); ask=null;
             }else{
-                span.innerHTML += mess[i].substr(k++, 1);
+                span.innerHTML += msg[i].substr(k++, 1);
             };
         }), 1000/3);
 
@@ -138,8 +152,8 @@ function isEnter(event)
 {
 //    var Enter =13;
     if (!canType) return false;
-    var key= event.keyCode || event.witch;
-    answer(key==13);
+    var key = event.keyCode || event.witch;
+    answer(key===13);
 }
 
 function answer(say)
